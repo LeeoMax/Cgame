@@ -4,8 +4,8 @@
 #include<time.h>
 
 //符号的定义，N*N的棋盘
-#define ROW 3
-#define COL 3
+#define ROW 5
+#define COL 5
 
 //函数声明
 

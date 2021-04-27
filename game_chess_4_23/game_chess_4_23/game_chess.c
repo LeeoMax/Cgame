@@ -47,10 +47,33 @@ void InitBoard(char board[ROW][COL], int row, int col)
 //
 //}
 //打印棋盘，将棋盘打印成N*N方格
+
+
+//void DisplayBoard(char board[ROW][COL], int row, int col)
+//{
+//	int i = 0;
+//	printf(" --- --- ---\n");
+//	for (i = 0; i < row; i++)
+//	{
+//		printf("| %c | %c | %c |\n",board[i][0],board[i][1],board[i][2]);
+//		if (i < row - 1)
+//		{
+//			printf("|---|---|---|\n");
+//		}
+//	}
+//	printf(" --- --- ---\n");
+//}
 void DisplayBoard(char board[ROW][COL], int row, int col)
 {
 	int i = 0;
-	for (i = 0; i < row; i++)
+	printf(" ");
+	for (i = 0; i < col; i++)
+	{
+		printf("%4d", i + 1);
+	}
+	printf("\n");
+	printf("  ");
+	for (i = 0; i < col; i++)
 	{
 		printf(" ---");
 	}
@@ -58,8 +81,10 @@ void DisplayBoard(char board[ROW][COL], int row, int col)
 	for (i = 0; i < row; i++)
 	{
 		int j = 0;
+		printf("%2d", i + 1);
 		for (j = 0; j < col; j++)
 		{
+	
 			printf("|");
 			printf(" %c ", board[i][j]);
 		}
@@ -68,6 +93,7 @@ void DisplayBoard(char board[ROW][COL], int row, int col)
 		if (i < row - 1)
 		{
 			int j = 0;
+			printf("  ");
 			for (j = 0; j < col; j++)
 			{
 				printf("|");
@@ -78,12 +104,12 @@ void DisplayBoard(char board[ROW][COL], int row, int col)
 
 		}
 	}
-	for (i = 0; i < row; i++)
+	printf("  ");
+	for (i = 0; i < col; i++)
 	{
 		printf(" ---");
 	}
 	printf("\n");
-
 }
 //玩家下棋，落子为x
 //玩家要先输入坐标，然后判断坐标的合法性，最后再判断坐标是否被占用
@@ -133,6 +159,9 @@ void ComputerMove(char board[ROW][COL], int row, int col)
 	}
 }
 
+
+
+
 //判断棋盘是否满了,满了返回1，没满返回0
 int IsFull(char board[ROW][COL], int row, int col)
 {
@@ -154,6 +183,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 {
 	int i = 0;
 	int j = 0;
+
 	////判断三子棋
 	////横三行
 	//for (i = 0; i < row; i++)
@@ -183,7 +213,7 @@ char IsWin(char board[ROW][COL], int row, int col)
 
 	//判断多子棋
 	//横行
-	for (i = 0; i < row; i++)
+	/*for (i = 0; i < row; i++)
 	{
 		int j = 0;
 		int count = 0;
@@ -199,10 +229,27 @@ char IsWin(char board[ROW][COL], int row, int col)
 				return board[i][j];
 			}
 		}	
+	}*/
+
+	for (i = 0; i < row; i++)
+	{
+		int count1 = 0;
+		int j = 0;
+		for (j = 0; j < col - 1; j++)
+		{
+			if (board[i][j] != ' ' && board[i][j] == board[i][j + 1])
+			{
+				count1++;
+			}
+			if (count1 == ROW - 1)
+			{
+				return board[i][j];
+			}
+		}
 	}
 
 	//竖列
-	for (j = 0; j < col; j++)
+	/*for (j = 0; j < col; j++)
 	{
 		int count = 0;
 		for (i = 0; i < row - 1; i++)
@@ -217,11 +264,28 @@ char IsWin(char board[ROW][COL], int row, int col)
 				return board[i][j];
 			}
 		}
+	}*/
+
+
+	for (j = 0; j < col; j++)
+	{
+		int count2 = 0;
+		for (i = 0; i < row - 1; i++)
+		{
+			if (board[i][j] != ' ' && board[i][j] == board[i + 1][j])
+			{
+				count2++;
+			}
+			if (count2 == ROW - 1)
+			{
+				return board[i][j];
+			}
+		}
 	}
 
 	//对角线
-	int count = 0;
-	for (i = 0; i < row; i++)
+	/*int count = 0;
+	for (i = 0; i < row-1; i++)
 	{
 		count++;
 		if (board[i][i] == ' ' || board[i][i] != board[i + 1][i + 1])
@@ -232,19 +296,51 @@ char IsWin(char board[ROW][COL], int row, int col)
 		{
 			return board[i][i];
 		}
+	}*/
+
+
+
+	int count3 = 0;
+	for (i = 0; i < row-1; i++)
+	{
+		if (board[i][i] != ' ' && board[i][i] == board[i + 1][i + 1])
+		{
+			count3++;
+		}
+		if (count3 == ROW - 1)
+		{
+			return board[i][i];
+		}
 	}
 
-	for (i = 0; i < row; i++)
+
+
+
+	//for (i = 0; i < row-1; i++)
+	//{
+	//	count++;
+	//	if (board[i][row -1 - i] == ' ' || board[i][row - 1 - i] != board[i + 1][row - i - 2])
+	//	{
+	//		count = 0;
+	//	}
+	//	if (count == ROW - 1)
+	//	{
+	//		return board[i][row -1 - i];
+	//	}
+	//}
+
+	int count4 = 0;
+	for (i = 0; i < row-1 ; i++)
 	{
-		count++;
-		if (board[i][row - i] == ' ' || board[i][row - i] != board[i + 1][row - i - 1])
+		if (board[i][row-1-i] != ' ' && board[i][row-1-i] == board[i+1][row-2-i])
 		{
-			count = 0;
+			count4 ++;
 		}
-		if (count == ROW - 1)
+		if (count4 == ROW - 1)
 		{
-			return board[i][row - i];
+			return board[i][row-1-i];
 		}
+
 	}
 
 	int ret = 0;
@@ -253,10 +349,9 @@ char IsWin(char board[ROW][COL], int row, int col)
 	{
 		return 'Q';
 	}
-	else
-	{
-		return 'C';
-	}
+
+	return 'C';
+
 
 }
 
